@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="zh"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>PhoneNumberCheckUtils.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">myproject</a> &gt; <a href="index.source.html" class="el_package">default</a> &gt; <span class="el_source">PhoneNumberCheckUtils.java</span></div><h1>PhoneNumberCheckUtils.java</h1><pre class="source lang-java linenums">
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import java.util.regex.PatternSyntaxException;
+
+<span class="nc" id="L7">public class PhoneNumberCheckUtils { /**</span>
+                                      * 大陆号码或香港号码均可
+                                      */
+<span class="pc bpc" id="L10" title="3 of 4 branches missed.">        public static boolean isPhoneLegal(String str)throws PatternSyntaxException { return isChinaPhoneLegal(str) || isHKPhoneLegal(str);</span>
+        } /**
+           * 大陆手机号码11位数，匹配格式：前三位固定格式+后8位任意数
+           * 此方法中前三位格式有：
+           * 13+任意数
+           * 15+除4的任意数
+           * 18+除1和4的任意数
+           * 17+除9的任意数
+           * 147
+           */
+<span class="fc" id="L20">        public static boolean isChinaPhoneLegal(String str) throws PatternSyntaxException { String regExp = &quot;^((13[0-9])|(15[^4])|(18[0,2,3,5-9])|(17[0-8])|(147))\\d{8}$&quot;;</span>
+<span class="fc" id="L21">                Pattern p = Pattern.compile(regExp);</span>
+<span class="fc" id="L22">                Matcher m = p.matcher(str);</span>
+<span class="fc" id="L23">                return m.matches();</span>
+        } /**
+           * 香港手机号码8位数，5|6|8|9开头+7位任意数
+           */
+<span class="fc" id="L27">        public static boolean isHKPhoneLegal(String str)throws PatternSyntaxException { String regExp = &quot;^(5|6|8|9)\\d{7}$&quot;;</span>
+<span class="fc" id="L28">                Pattern p = Pattern.compile(regExp);</span>
+<span class="fc" id="L29">                Matcher m = p.matcher(str);</span>
+<span class="fc" id="L30">                return m.matches();</span>
+        }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.3.201901230119</span></div></body></html>
